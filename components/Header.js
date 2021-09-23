@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { SearchIcon, GlobeAltIcon, MenuIcon, UserCircleIcon, UsersIcon } from '@heroicons/react/solid';
-import { useState } from 'react'; 
+import { useState, useEffect } from 'react'; 
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
@@ -25,6 +25,21 @@ function Header({ placeholder }) {
         });
     }
 
+    // Navbar scroll opacity
+    const [show, handleShow] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+        if(window.scrollY > 200) {
+            handleShow(true);
+        } else handleShow(false);
+        });
+
+        return() => {
+            window.removeEventListener("scroll");
+        }
+    }, []);
+
     const handleSelect = (ranges) => {
         setStartDate(ranges.selection.startDate);
         setEndDate(ranges.selection.endDate);
@@ -41,7 +56,7 @@ function Header({ placeholder }) {
     }
 
     return (
-        <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md py-5 px-5 md:px-10">
+        <header className={`sticky top-0 z-50 grid grid-cols-3 bg-white py-5 px-5 md:px-10 transition duration-300 ease-out ${show && "bg-opacity-0"} ${!show && "shadow-md"}`} >
 
             {/* Left */}
             <div className="relative flex items-center h-10 cursor-pointer my-auto" onClick={() => router.push("/")}>
