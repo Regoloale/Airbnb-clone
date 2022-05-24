@@ -25,21 +25,6 @@ function Header({ placeholder }) {
         });
     }
 
-    // Navbar scroll opacity
-    const [show, handleShow] = useState(false);
-
-    useEffect(() => {
-        window.addEventListener("scroll", () => {
-        if(window.scrollY > 200) {
-            handleShow(true);
-        } else handleShow(false);
-        });
-
-        return() => {
-            window.removeEventListener("scroll");
-        }
-    }, []);
-
     const handleSelect = (ranges) => {
         setStartDate(ranges.selection.startDate);
         setEndDate(ranges.selection.endDate);
@@ -56,7 +41,7 @@ function Header({ placeholder }) {
     }
 
     return (
-        <header className={`sticky top-0 z-50 grid grid-cols-3 bg-white py-5 px-5 md:px-10 transition duration-300 ease-out ${show && "bg-opacity-0"} ${!show && "shadow-md"}`} >
+        <header className={`sticky top-0 z-50 grid grid-cols-3 bg-white py-5 px-5 md:px-10 transition duration-300 ease-out`} >
 
             {/* Left */}
             <div className="relative flex items-center h-10 cursor-pointer my-auto" onClick={() => router.push("/")}>
